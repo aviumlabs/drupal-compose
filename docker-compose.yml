@@ -1,6 +1,6 @@
 services:
   drupal:
-    image: "10.2.5-php8.3-apache-bookworm" 
+    image: "drupal:10.2.5-php8.3-apache-bookworm" 
     volumes:
       - /var/www/html/modules
       - /var/www/html/profiles

@@ -48,26 +48,52 @@ Cloning into '\<application\_name\>'...
 
 ---
 
+
+## Post Installation Setup 
+
+
+After creating a new project, there is an included script for creating the 
+environment and database secrets files. 
+
+
+### Linux, macOS
+
+
+    $ ./prepare -i
+
+
+### Windows
+
+
+    PS > 
+
+
 ### Foreground or Background Services
 
-
-#### Windows Environment
 
 
 To run the services in the background:
 
 
+    $ docker compose up -d
+
+
     PS > docker compose up -d
+
 
 
 To run the services in the foreground:
 
+
+    $ docker compose up
 
     PS > docker compose up
 
     
 To stop an individual service:
 
+
+    $ docker compose stop [drupal, db]
 
     PS > docker compose stop [drupal, db]
 
@@ -87,13 +113,16 @@ To view the the logs of a background service:
 To list the current running containers:
 
 
+    $ docker compose ps
+
     PS > docker container ls
 
 
-| CONTAINER ID   | IMAGE            | ...  | NAMES                        |
-|----------------|------------------|------|------------------------------|
-| nnn            | postgres:16.2... | ...  | \<application\_name\>-db-1   |
-| nnn            | drupal/...    | ...  | \<application\_name\>-app-1  |
+
+| CONTAINER ID   | IMAGE                                | ... | NAMES           |
+|----------------|--------------------------------------|-----|-----------------|
+| nnn            | drupal:10.2.5-php8.3-apache-bookworm | ... | \<...drupal-1   |
+| nnn            | postgres:16.2-alpine3.19             | ... | \<...db-1       |
 
 
 
