@@ -13,10 +13,7 @@ This is a template repo and it can be utilized using the following pattern.
 [GitHub Documentation] [git-from-template]
 
 
-### Example Project
-
-
-#### Create a New Repository on GitHub.com
+### Create a New Repository on GitHub.com
 
 
 - Go to https://github.com/aviumlabs/drupal-compose
@@ -65,10 +62,21 @@ environment and database secrets files.
 ### Windows
 
 
-    PS > 
+    PS > .\setup.ps1 -Init 
 
 
-### Foreground or Background Services
+## Runtime
+
+
+After the environment has been configured Drupal docker services will be 
+started automatically if docker is running. Otherwise, start docker and 
+use of the commands below to start the docker Drupal services.
+
+Once the Drupal services are running, please see the runtime-guide for 
+further information on configuring the Drupal instance.
+
+
+## Additional Docker Information 
 
 
 
@@ -133,11 +141,18 @@ Range of uppercase alphabet characters -
 
 
 
-### Docker Images
+## Docker Images
 
 
-- Drupal image: 
+- Drupal image: 10.2.5-php8.3-apache-bookworm
 - PostgreSQL image: postgres:16.2-alpine3.19
 
 
 [git-from-template]: https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template
+
+
+## Install PHP Dependency
+
+
+    $ docker compose exec php composer require '<dependency>'
+     

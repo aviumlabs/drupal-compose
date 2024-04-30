@@ -5,8 +5,7 @@
 # 
 #         USAGE: ./prepare -i  
 # 
-#   DESCRIPTION: Initialize a Drupal docker project with
-#                database support 
+#   DESCRIPTION: Initialize a Drupal docker project with database support 
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
 #          BUGS: ---
@@ -97,7 +96,7 @@ gen_env_file() {
 	if [ ! -f $ENV_FILE ]; then
 
 cat > $ENV_FILE <<EnvFile
-# app variables
+# db variables
 POSTGRES_DB=postgres
 POSTGRES_USER=postgres
 EnvFile
@@ -123,6 +122,19 @@ DbFile
 	fi
 }
 
+start_docker() {
+	docker ps 2>&1
+
+	if [ $? -eq 0 ]; then
+		# Start the application
+		printf "Running docker compose up; press ctrl-c to stop...\n"
+		printf "\n"
+		docker compose up
+	else
+		printf "Please start docker and run docker compose up to start Drupal.\n"
+	fi
+}
+
 # Initialize the Phoenix Framework project
 initialize() {
 	printf "Generating Drupal docker environment files...\n"
@@ -133,11 +145,8 @@ initialize() {
 	# Generate database secret
 	gen_db_secret_file
 
-
-	# Start the application
-	printf "Running docker compose up; press ctrl-c to stop...\n"
-	printf "\n"
-	docker compose up
+	# Start docker Drupal services
+	start_docker
 }
 
 # Finalize the Phoenix Framework configuration and call mix ecto.create
