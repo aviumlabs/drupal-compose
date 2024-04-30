@@ -1,0 +1,154 @@
+#!/bin/bash - 
+#===============================================================================
+#
+#          FILE: prepare
+# 
+#         USAGE: ./prepare -i  
+# 
+#   DESCRIPTION: Initialize a Drupal docker project with
+#                database support 
+#       OPTIONS: ---
+#  REQUIREMENTS: ---
+#          BUGS: ---
+#         NOTES: This script generates the .env and .secret_db files for  
+#                supporting the Drupal docker environment. 
+#        AUTHOR: Michael Konrad (2024), 
+#  ORGANIZATION: Avium Labs LLC 
+#       CREATED: 04/29/2024 12:16
+#      REVISION:  ---
+#===============================================================================
+
+set -o nounset                              # Treat unset variables as an error
+IFS=$'\n\t'
+
+# Defaults
+ENV_FILE=$(pwd)/.env
+DB_SECRET_FILE=$(pwd)/.secret_db
+
+# Help 
+usage() {
+	printf "\n"
+	printf "A script to automate the steps to configure the\n"
+	printf "docker containers based on this docker compose file.\n"
+	printf "\n"
+	printf "$0 -i\n"
+	printf "\n Details: \n"
+	printf "           -i initializes the .env and .secret_db files.\n"
+	printf "\n"
+	printf " This script by default generates the docker environment \n"
+	printf " file, as .env file in the current working directory.\n"
+        printf "\n\n"
+	exit 1
+}
+
+INIT='false'
+CLEAN='false'
+
+# Script options 
+optstring="ich"
+while getopts ${optstring} arg; do
+	case ${arg} in 
+		i)
+			INIT='true'
+			;;
+		c)
+			CLEAN='true'
+			;;
+
+		h)
+			usage
+			;;
+		:)
+			printf "Missing required value for -$OPTARG\n"
+			usage
+			;;
+		\?)
+			printf "Invalid option... -${OPTARG}\n"
+			usage
+			;;
+	esac
+done
+
+
+# Main function to run script operations
+main() {
+	
+	if [[ ${CLEAN} == true ]]; then
+		sanitize
+
+	elif  [[ ${INIT} == true ]]; then 
+		initialize
+	fi
+}
+
+# Generate a random 14 character password
+gen_rand_pass() {
+	if [[ "$OSTYPE" == "darwin"* ]]; then 
+		PPWD=$(date +%s | shasum -a 256 | base64 | head -c14)
+
+	elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+		PPWD=$(date +%s | sha256sum | base64 | head -c14)
+
+	fi
+}
+
+# Generate the docker environment file if it does not exist
+gen_env_file() {
+	if [ ! -f $ENV_FILE ]; then
+
+cat > $ENV_FILE <<EnvFile
+# app variables
+POSTGRES_DB=postgres
+POSTGRES_USER=postgres
+EnvFile
+
+	else
+		printf "Environment file is already existing.\n"
+		exit 1
+	fi
+}
+
+gen_db_secret_file() {
+	# Generate a random password for Postgres
+	gen_rand_pass
+
+	if [ ! -f $DB_SECRET_FILE ]; then
+
+cat > $DB_SECRET_FILE <<DbFile
+$PPWD
+DbFile
+	else
+		printf "DB secret file is already existing.\n"
+		exit 1
+	fi
+}
+
+# Initialize the Phoenix Framework project
+initialize() {
+	printf "Generating Drupal docker environment files...\n"
+		
+	# Generate the initial docker environment file
+	gen_env_file
+
+	# Generate database secret
+	gen_db_secret_file
+
+
+	# Start the application
+	printf "Running docker compose up; press ctrl-c to stop...\n"
+	printf "\n"
+	docker compose up
+}
+
+# Finalize the Phoenix Framework configuration and call mix ecto.create
+sanitize() {
+	if [ -f "$ENV_FILE" ]; then 
+		rm $ENV_FILE	
+	fi	
+	
+	if [ -f "$DB_SECRET_FILE" ]; then
+		rm $DB_SECRET_FILE
+	fi
+}
+
+main

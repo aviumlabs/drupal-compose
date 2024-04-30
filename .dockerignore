@@ -1,0 +1,24 @@
+# docker compose
+docker-compose.yml
+
+# environment files
+.env
+
+# Apple
+.DS_Store
+
+# git
+.git
+.gitignore
+
+# Node.js
+**/node_modules/
+**/dist
+npm-debug.log
+
+# Visual Studio
+.coverage
+.coverage.*
+
+# Project 
+README.md

@@ -1,0 +1,13 @@
+# Secrets
+.secret_*
+
+# Apple
+.DS_Store
+
+# vim
+*.swp
+*.swo
+*.swn
+
+# ispell
+*.bak
