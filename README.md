@@ -16,13 +16,13 @@ This is a template repo and it can be utilized using the following pattern.
 ### Create a New Repository on GitHub.com
 
 
-- Go to https://github.com/aviumlabs/drupal-compose
-- Select Use this template
-- Select Create a new repository
+- Go to https://github.com/aviumlabs/drupal-compose  
+- Select Use this template  
+- Select Create a new repository  
 
 
 Repository name: __<project_name>__  
-Description: __project_description__  
+Description: __project_description__    
 Public  
 
 
@@ -147,8 +147,10 @@ To list the current running containers:
 ## Install Dependency
 
 
-    $ docker compose exec app composer require '<dependency>'
+    $ docker compose exec drupal composer require '<dependency>'
 
 
-    $ docker compose exec app composer require 'drupal/simple_oauth:^5.2'
+    $ docker compose exec drupal composer require 'drupal/openid_connect:^1.4'
+
+    $ docker compose exec drupal composer require 'drupal/openid_connect:^3.0@alpha'
      

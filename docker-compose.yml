@@ -34,6 +34,7 @@ volumes:
   db_data:
   www_modules:
   www_profiles:
+  www_themes:
   www_sites:
 
 secrets:
