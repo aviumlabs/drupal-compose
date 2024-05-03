@@ -82,18 +82,3 @@ configuration at http://localhost:8080.
 
 
 ![drupal landing page image](./image/drupal_landing_page "Drupal landing page")
-
-
-## Installing Simple Oauth
-
-
-1. Select Extend
-   Scroll down to __Authentication__
-2. Select Simple OAuth & OpenID Connect
-   Select Install
-5. Some requied modules must be enabled
-   Select Continue
-
-
-
-### Restart Docker Drupal Services

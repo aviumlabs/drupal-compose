@@ -147,8 +147,8 @@ To list the current running containers:
 ## Install Dependency
 
 
-    $ docker compose exec php composer require '<dependency>'
+    $ docker compose exec app composer require '<dependency>'
 
 
-    $ docker compose exec php composer require 'drupal/simple_oauth:^5.2'
+    $ docker compose exec app composer require 'drupal/simple_oauth:^5.2'
      
