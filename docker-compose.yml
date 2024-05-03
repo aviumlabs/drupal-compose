@@ -2,10 +2,10 @@ services:
   drupal:
     image: "drupal:10.2.5-php8.3-apache-bookworm" 
     volumes:
-      - /var/www/html/modules
-      - /var/www/html/profiles
-      - /var/www/html/themes 
-      - /var/www/html/sites
+      - www_modules:/var/www/html/modules
+      - www_profiles:/var/www/html/profiles
+      - www_themes:/var/www/html/themes 
+      - www_sites:/var/www/html/sites
     ports:
       - "8080:80"
     restart: always 
@@ -32,6 +32,9 @@ services:
 
 volumes:
   db_data:
+  www_modules:
+  www_profiles:
+  www_sites:
 
 secrets:
   postgres_password:

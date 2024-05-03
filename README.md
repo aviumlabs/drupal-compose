@@ -35,8 +35,9 @@ Generating your repository...
 ### Create and Clone a New Repository with GitHub CLI
 
 
-    $ gh repo create <application_name> -c -d "Application description" --public \
+    $ gh repo create <application_name> -c -d "Application description" --private/public \
       -p aviumlabs/drupal-compose 
+    $ cd <application_name>
 
 
 Created repository \<github\_userid\>\<application\_name\>  on GitHub  
@@ -50,7 +51,7 @@ Cloning into '\<application\_name\>'...
 
 
 After creating a new project, there is an included script for creating the 
-environment and database secrets files. 
+environment and database secret files. 
 
 
 ### Linux, macOS
@@ -133,14 +134,6 @@ To list the current running containers:
 | nnn            | postgres:16.2-alpine3.19             | ... | \<...db-1       |
 
 
-
-## PowerShell Info
-
-Range of lowercase alphabet characters - [char]97..[char]122
-Range of uppercase alphabet characters - 
-
-
-
 ## Docker Images
 
 
@@ -151,8 +144,11 @@ Range of uppercase alphabet characters -
 [git-from-template]: https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template
 
 
-## Install PHP Dependency
+## Install Dependency
 
 
     $ docker compose exec php composer require '<dependency>'
+
+
+    $ docker compose exec php composer require 'drupal/simple_oauth:^5.2'
      
