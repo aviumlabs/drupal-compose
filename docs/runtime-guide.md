@@ -8,42 +8,42 @@ After completing the post installation setup; access the Drupal
 configuration at http://localhost:8080.
 
 
-1. Choose language
-   "Language of Choice"
-   Select Save and continue
-2. Choose profile
-   Standard
-   Install with commonly used features pre-configured
-   Select Save and continue 
-3. Verify requirements
-   Automatically skipped
-4. Set up database
-   Select PostgreSQL
-   Database name: postgres
-   Database username: postgres
-   Database password: `copy from secret file`
-   Select Advanced options
-   Change Host: from `localhost` to `db`
-   Set table name prefix: drupal_
-   Select Save and continue
-5. Install site
-   Automatically completed
-6. Configure site
-   SITE INFORMATION
-     Site name: `<site_name>`
-     Site email address: `<email_address>`
-   SITE MAINTENANCE ACCOUNT 
-     Username: `<enter_username>`
-     Password: `<password>`
-     Confirm password: `<password>`
-     Email address: `<email_address>`
-   REGIONAL SETTINGS
-     Default country: `<country>` 
-     Default time zone: `<time zone>`
-  UPDATE NOTIFICATIONS
-     Check for updates automatically: uncheck
-     Receive email notifications: uncheck
-  Select Save and continue
+1. Choose language  
+   "Language of Choice"  
+   Select Save and continue  
+2. Choose profile  
+   Standard  
+   Install with commonly used features pre-configured  
+   Select Save and continue  
+3. Verify requirements  
+   Automatically skipped  
+4. Set up database  
+   Select PostgreSQL  
+   Database name: postgres  
+   Database username: postgres  
+   Database password: `copy from secret file`  
+   Select Advanced options  
+   Change Host: from `localhost` to `db`  
+   Set table name prefix: drupal_  
+   Select Save and continue  
+5. Install site  
+   Automatically completed  
+6. Configure site  
+   SITE INFORMATION  
+     Site name: `<site_name>`  
+     Site email address: `<email_address>`  
+   SITE MAINTENANCE ACCOUNT  
+     Username: `<enter_username>`  
+     Password: `<password>`  
+     Confirm password: `<password>`  
+     Email address: `<email_address>`  
+   REGIONAL SETTINGS  
+     Default country: `<country>`  
+     Default time zone: `<time zone>`  
+  UPDATE NOTIFICATIONS  
+     Check for updates automatically: uncheck  
+     Receive email notifications: uncheck  
+  Select Save and continue  
 
 
 ### 1 Choose language
