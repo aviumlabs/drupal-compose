@@ -49,36 +49,36 @@ configuration at http://localhost:8080.
 ### 1 Choose language
 
 
-![choose language image](./image/drupal_1_choose_language "Choose language")
+![choose language image](image/drupal_1_choose_language "Choose language")
 
 
 ### 2 Choose profile
 
 
-![choose profile image](./image/drupal_2_choose_profile "Choose profile")
+![choose profile image](image/drupal_2_choose_profile "Choose profile")
 
 
 ### 4 Set up database
 
 
-![set up database image](./image/drupal_4_set_up_database "Set up database")
+![set up database image](image/drupal_4_set_up_database "Set up database")
 
-![set up database image 2](./image/drupal_4_set_up_database_2 "Set up database continued")
+![set up database image 2](image/drupal_4_set_up_database_2 "Set up database continued")
 
-![set up database advance image](./image/drupal_4_set_up_database_advance "Set up database advance options")
+![set up database advance image](image/drupal_4_set_up_database_advance "Set up database advance options")
 
 
 ### 6 Configure site
 
 
-![configure site image](./image/drupal_6_configure_site "Configure site")
+![configure site image](image/drupal_6_configure_site "Configure site")
 
-![configure site image 2](./image/drupal_6_configure_site_2 "Configure site continued")
+![configure site image 2](image/drupal_6_configure_site_2 "Configure site continued")
 
-![configure site image 3](./image/drupal_6_configure_site_3 "Configure site continued")
+![configure site image 3](image/drupal_6_configure_site_3 "Configure site continued")
 
 
 ### Drupal Landing Page
 
 
-![drupal landing page image](./image/drupal_landing_page "Drupal landing page")
+![drupal landing page image](image/drupal_landing_page "Drupal landing page")
