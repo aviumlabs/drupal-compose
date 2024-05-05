@@ -46,6 +46,38 @@ configuration at http://localhost:8080.
   Select Save and continue  
 
 
+## Installing OpenID Connect (Alpha)
+
+
+    $ cd <project_directory> 
+    $ docker compose exec drupal composer require 'drupal/openid_connect:^3.0@alpha'
+
+
+>  
+> ./composer.json has been updated  
+> Running composer update drupal/openid\_connect  
+> Loading composer repositories with package information  
+> Updating dependencies  
+> Lock file operations: 2 installs, 0 updates, 0 removals  
+>   - Locking drupal/externalauth (2.0.5)  
+>   - Locking drupal/openid\_connect (3.0.0-alpha3)  
+> Writing lock file  
+> Installing dependencies from lock file (including require-dev)  
+> Package operations: 2 installs, 0 updates, 0 removals  
+>   - Downloading drupal/externalauth (2.0.5)  
+>   - Downloading drupal/openid\_connect (3.0.0-alpha3)  
+>   - Installing drupal/externalauth (2.0.5): Extracting archive  
+>   - Installing drupal/openid\_connect (3.0.0-alpha3): Extracting archive  
+> Generating autoload files  
+> 42 packages you are using are looking for funding.  
+> Use the `composer fund` command to find out more!  
+> No security vulnerability advisories found.  
+>  
+
+
+## Screenshots
+
+
 ### 1 Choose language
 
 
