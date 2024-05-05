@@ -1,25 +1,42 @@
 services:
-  drupal:
-    image: "aviumlabs/drupal:latest-alpine" 
+  www: 
+    image: "aviumlabs/nginx-drupal-proxy:latest-alpine"
+    restart: unless-stopped
     volumes:
       - www_modules:/var/www/html/modules
       - www_profiles:/var/www/html/profiles
       - www_themes:/var/www/html/themes 
       - www_sites:/var/www/html/sites
     ports:
-      - "8080:80"
-    restart: always 
+      - 8080:80
+    depends_on:
+      - drupal
+    networks:
+      - external 
+  drupal:
+    image: "aviumlabs/drupal:latest-alpine" 
+    restart: unless-stopped 
+    volumes:
+      - www_modules:/var/www/html/modules
+      - www_profiles:/var/www/html/profiles
+      - www_themes:/var/www/html/themes 
+      - www_sites:/var/www/html/sites
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - internal
+      - external
   db:
     env_file: 
       - path: ./.env 
         required: true
     image: "postgres:16.2-alpine3.19"
-    restart: always
+    restart: unless-stopped
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - internal
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -40,3 +57,9 @@ volumes:
 secrets:
   postgres_password:
     file: ./.secret_db
+
+networks:
+  external:
+    driver: bridge
+  internal:
+    driver: bridge
