@@ -14,7 +14,7 @@ services:
     image: "aviumlabs/drupal:latest-alpine" 
     restart: unless-stopped 
     volumes:
-      - drupal-data:/var/www/html
+      - drupal_data:/var/www/html
     depends_on:
       db:
         condition: service_healthy
