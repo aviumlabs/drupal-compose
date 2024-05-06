@@ -135,6 +135,15 @@ To list the current running containers:
     PS > docker container ls
 
 
+### Revision Tag 0.0.3
+
+
+| CONTAINER ID   | IMAGE                                | ... | NAMES           |
+|----------------|--------------------------------------|-----|-----------------|
+| nnn            | aviumlabs/drupal:latest-bookworm     | ... | \<...drupal-1   |
+| nnn            | postgres:16.2-alpine3.19             | ... | \<...db-1       |
+
+
 ### Revision Tag 0.0.2
 
 
