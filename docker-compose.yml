@@ -7,21 +7,11 @@ services:
     ports:
       - 8080:80
     depends_on:
-      - drupal
-    networks:
-      - external 
-  drupal:
-    image: "aviumlabs/drupal:latest-alpine" 
-    restart: unless-stopped 
-    volumes:
-      - drupal_data:/var/www/html
-      - "8080:80"
-    depends_on:
       db:
         condition: service_healthy
     networks:
+      - external 
       - internal
-      - external
   db:
     env_file: 
       - path: ./.env 
