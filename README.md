@@ -35,14 +35,23 @@ Generating your repository...
 ### Create and Clone a New Repository with GitHub CLI
 
 
-    $ gh repo create <application_name> -c -d "Application description" --private/public \
+    $ gh repo create <application-name> -c -d "Application description" --private/public \
       -p aviumlabs/drupal-compose 
-    $ cd <application_name>
+    $ cd <application-name>
 
 
 Created repository \<github\_userid\>\<application\_name\>  on GitHub  
 Cloning into '\<application\_name\>'...  
 
+
+__Note__: When dedicing on an application name, use - instead of _ when 
+separating words. Experienced some weird behavior with Docker Desktop and 
+docker compose exec when the project has an _ in the application name. 
+
+When the application is launched with the prepare script and the application 
+name contains an _ , the docker compose exec command will not work. Restarting 
+the docker environment resolves the issue, but it's not a good first time 
+user experience.
 
 ---
 
@@ -71,14 +80,13 @@ environment and database secret files.
 
 After the environment has been configured Drupal docker services will be 
 started automatically if docker is running. Otherwise, start docker and 
-use of the commands below to start the docker Drupal services.
+use the commands below to start the docker Drupal services.
 
-Once the Drupal services are running, please see the runtime-guide for 
+Once the Drupal services are running, please see the docs/runtime-guide.md for 
 further information on configuring the Drupal instance.
 
 
 ## Additional Docker Information 
-
 
 
 To run the services in the background:
@@ -149,20 +157,14 @@ To list the current running containers:
 ## Docker Images
 
 
-- Drupal image: 10.2.5-php8.3-apache-bookworm
+- Drupal image: aviumlabs/drupal:latest-bookworm
 - PostgreSQL image: postgres:16.2-alpine3.19
 
 
 [git-from-template]: https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template
 
 
-## Install Dependency
+## Install Drupal Module
 
 
     $ docker compose exec drupal composer require '<dependency>'
-
-
-    $ docker compose exec drupal composer require 'drupal/openid_connect:^1.4'
-
-    $ docker compose exec drupal composer require 'drupal/openid_connect:^3.0@alpha'
-     

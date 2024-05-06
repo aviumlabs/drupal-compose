@@ -46,6 +46,12 @@ configuration at http://localhost:8080.
   Select Save and continue  
 
 
+## OpenID Connect
+
+
+To install and configure the OpenID Connect module please see docs/openid\_connect.md.
+
+
 ## Initial Configuration Screenshots
 
 
