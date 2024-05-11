@@ -35,8 +35,10 @@ Generating your repository...
 ### Create and Clone a New Repository with GitHub CLI
 
 
-    $ gh repo create <application-name> -c -d "Application description" --private/public \
-      -p aviumlabs/drupal-compose 
+    gh repo create <application-name> -c -d "Application description" --private/public \
+    -p aviumlabs/drupal-compose 
+
+
     $ cd <application-name>
 
 
@@ -66,13 +68,13 @@ environment and database secret files.
 ### Linux, macOS
 
 
-    $ ./prepare -i
+    ./prepare -i
 
 
 ### Windows
 
 
-    PS > .\setup.ps1 -Init 
+    .\setup.ps1 -Init 
 
 
 ## Runtime
@@ -92,47 +94,47 @@ further information on configuring the Drupal instance.
 To run the services in the background:
 
 
-    $ docker compose up -d
-
-
-    PS > docker compose up -d
-
+    docker compose up -d
 
 
 To run the services in the foreground:
 
 
-    $ docker compose up
-
-    PS > docker compose up
+    docker compose up
 
     
 To stop an individual service:
 
 
-    $ docker compose stop [drupal, db]
-
-    PS > docker compose stop [drupal, db]
+    docker compose stop [drupal, db]
 
 
 To start an individual service:
 
 
-    PS > docker compose start [drupal, db]
+    docker compose start [drupal, db]
 
 
 To view the the logs of a background service:
 
 
-    PS > docker logs -f <running_container_name>
+    docker logs -f <running_container_name>
 
 
 To list the current running containers:
 
 
-    $ docker compose ps
+    docker compose ps
 
-    PS > docker container ls
+or
+
+    docker container ls
+
+
+To list all containers:
+
+
+    docker container ls -a
 
 
 ### Revision Tag 0.0.3
@@ -173,7 +175,7 @@ To list the current running containers:
 [git-from-template]: https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template
 
 
-## Install Drupal Module
+## Install a Drupal Module
 
 
-    $ docker compose exec drupal composer require '<dependency>'
+    docker compose exec drupal composer require '<module>'

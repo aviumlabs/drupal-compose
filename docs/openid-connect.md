@@ -15,18 +15,9 @@ stable branch not covered by this guide.
 Module URL: `https://www.drupal.org/project/openid_connect` 
 
 
-macOS
+    cd <project_directory> 
 
-
-    $ cd <project_directory> 
-    $ docker compose exec drupal composer require 'drupal/openid_connect:^3.0@alpha'
-
-
-Windows
-
-
-    PS > cd <project_directory>
-    PS > docker compose exec drupal composer require 'drupal/openid_connect:^3.0@alpha'
+    docker compose exec drupal composer require 'drupal/openid_connect:^3.0@alpha'
 
 
 Docker compose command output:
@@ -54,23 +45,20 @@ Docker compose command output:
 >
 
 
-## Configuring OpenID Connect 
+## 1) Configuring OpenID Connect 
 
 
 1. Login to Drupal Dashboard  
 2. Select Manage  
-3. Scroll to User authentication  
-4. Check External Authentication and OpenID Connect  
-5. Click Install  
-6. Select Continue to Enable External Authentication module  
-7. Scroll to User authentication again  
-8. Check External Authentication and OpenID Connect  
-9. Select Install  
-10. Status message; 2 modules have been enabled: ...  
-11. Select Configuration  
-12. Select OpenID Connect 
-13. Select `+ Generic OAuth 2.0` 
-13. Complete the form
+3. Select Extend
+4. Scroll to User authentication  
+5. Check External Authentication and OpenID Connect  
+6. Click Install  
+7. Status message; 2 modules have been enabled: ...  
+8. Select Configuration  
+9. Select OpenID Connect 
+10. Select `+ Generic OAuth 2.0` 
+11. Complete the form
   * Name: E.g. Sign in with Auth0
   * Client ID: \<pulled from Auth0 Application Settings\>
   * Client secret: \<pulled from Auth0 Application Settings\>
@@ -78,11 +66,11 @@ Docker compose command output:
   * Select Auto discover endpoints
   * Issuer URL:  \<pulled from Auth0 Application Advance Settings\>
   * Scopes: profile openid email
-14. Record the Redirect URL 
-15. Select Create OpenID Connect client  
+12. Record the Redirect URL 
+13. Select Create OpenID Connect client  
 
 
-### Update OpenID Connect Settings 
+### 2) Update OpenID Connect Settings 
 
 
 Change the OpenID Connect Settings to allow Auth0 user accounts to automatically 
@@ -99,7 +87,7 @@ be created.
 6. Select Save configuration
 
 
-### Update Drupal Account Settings
+### 3) Update Drupal Account Settings
 
 
 1. Select Manage -> Configuration -> People -> Account settings
@@ -116,7 +104,7 @@ This guide takes advantage of the Auth0 free tier. Sign up can be completed on
 the Auth0 website: https://auth0.com. 
 
 
-### Create an Application
+### 4) Create an Application
 
 
 1. Login to the Auth0 Dashboard
@@ -127,7 +115,7 @@ the Auth0 website: https://auth0.com.
 6. Select application technology __php__
 
 
-#### Application Settings
+#### 5) Application Settings
 
 
 The settings for configuring the Drupal client are located in the `Settings` 
@@ -145,3 +133,31 @@ Record the Domain, Client ID, Client Secret settings.
 
 
 Record the OpenID Configuration url
+
+
+---
+
+
+## OpenID Connect Configuration Screenshots
+
+
+### 1 Drupal Manage
+
+
+From Drupal Dashboard > select Manage
+
+
+1.2
+![select manage image](./image/drupal_select_manage.png "Manage")
+
+
+1.3
+![select extend image](./image/drupal_select_extend.png "Extend")
+
+
+1.5
+![select user auth image](./image/drupal_openid_config_extend_user_auth.png "Extend User authentication")
+
+
+1.9
+![select config openid image](./image/drupal_configuration_select_openid_connect.png "Select OpenID Connect")
