@@ -198,4 +198,4 @@ Record the OpenID Configuration url
 ![config auth0 application image](./image/auth0_application_advance_settings.png "Application Advnacd Settings")
 
 
-![config auth0 application image](./image/auth0_application_advance_settings_endpoint.png "Application Advnacd Settings Endpoints")
+![config auth0 application image](./image/auth0_application_advance_settings_endpoints.png "Application Advnacd Settings Endpoints")
