@@ -141,23 +141,61 @@ Record the OpenID Configuration url
 ## OpenID Connect Configuration Screenshots
 
 
-### 1 Drupal Manage
+### 1 Drupal OpenID Configuration
 
 
-From Drupal Dashboard > select Manage
-
-
-1.2
+1.2 From Drupal Dashboard > select Manage
 ![select manage image](./image/drupal_select_manage.png "Manage")
 
 
-1.3
+1.3 Select Extend
 ![select extend image](./image/drupal_select_extend.png "Extend")
 
 
-1.5
+1.5 Select User authentication
 ![select user auth image](./image/drupal_openid_config_extend_user_auth.png "Extend User authentication")
 
 
-1.9
+1.7 Enabled Status Message 
+![enabled status message image](./image/drupal_openid_module_status_message.png "Enabled Status Message")
+
+
+1.9 Select OpenID Connect
 ![select config openid image](./image/drupal_configuration_select_openid_connect.png "Select OpenID Connect")
+
+
+1.11 Configure Generic OAuth 2.0 Client
+![config generic oauth2 image](./image/drupal_openid_config_1a.png "Generic OAuth 2.0 Configuration")
+
+
+![config generic oauth2 image](./image/drupal_openid_config_1b.png "Generic OAuth 2.0 Configuration")
+
+
+![config generic oauth2 image](./image/drupal_openid_config_1c.png "Generic OAuth 2.0 Configuration")
+
+
+2.1 Configure OpenID Connect Settings
+
+
+![config openid settings image](./image/drupal_openid_config_settings.png "General OpenID Connect Settings")
+
+
+4.1 Auth0 Application 
+
+
+![config auth0 application image](./image/auth0_applications_applications.png "Auth0 > Applications > Applications")
+
+
+![config auth0 application image](./image/auth0_application_settings.png "Application Settings")
+
+
+![config auth0 application image](./image/auth0_application_technology_1a.png "Application Technology")
+
+
+![config auth0 application image](./image/auth0_application_technology_1b.png "Application Technology")
+
+
+![config auth0 application image](./image/auth0_application_advance_settings.png "Application Advnacd Settings")
+
+
+![config auth0 application image](./image/auth0_application_advance_settings_endpoint.png "Application Advnacd Settings Endpoints")
