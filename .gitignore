@@ -1,5 +1,6 @@
 # Secrets
 .secret_*
+*-secret.yml
 
 # Apple
 .DS_Store
@@ -11,3 +12,6 @@
 
 # ispell
 *.bak
+
+# environment
+.env

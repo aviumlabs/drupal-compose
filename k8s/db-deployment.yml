@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  labels: 
+    app: db
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - image: postgres:16.2-alpine3.19
+          name: postgres
+          env:
+            - name: POSTGRES_DB 
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-env
+                  key: postgres-db 
+            - name: POSTGRES_USER 
+              valueFrom: 
+                configMapKeyRef:
+                  name: postgres-env
+                  key: postgres-user 
+            - name: POSTGRES_PASSWORD 
+              valueFrom:
+                secretKeyRef:
+                  name: secret-db
+                  key: postgres-password
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-data
+            - mountPath: /etc/secret-volume
+              name: secret-volume
+              readOnly: true
+      volumes:
+        - name: db-data
+          persistentVolumeClaim:
+            claimName: db-data-pvc
+        - name: secret-volume
+          secret: 
+            secretName: secret-db

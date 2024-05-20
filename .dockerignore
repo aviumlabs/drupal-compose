@@ -3,6 +3,7 @@ docker-compose.yml
 
 # environment files
 .env
+.secret_db
 
 # Apple
 .DS_Store

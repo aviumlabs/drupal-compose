@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: drupal
+  labels: 
+    app: drupal
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drupal
+  template:
+    metadata:
+      labels:
+        app: drupal
+    spec:
+      initContainers:
+        - image: aviumlabs/drupal:latest-bookworm
+          name: drupal-content
+          command: ["/bin/sh", "-c"]
+          args: ["cd /opt/drupal/web && cp -Rp . /tmp"]
+          volumeMounts:
+            - mountPath: /tmp
+              name: drupal-data
+      containers:
+        - image: aviumlabs/drupal:latest-bookworm
+          name: drupal 
+          env:
+            - name: POSTGRES_DB 
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-env
+                  key: postgres-db
+            - name: POSTGRES_USER 
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-env
+                  key: postgres-user
+            - name: POSTGRES_PASSWORD 
+              valueFrom:
+                secretKeyRef:
+                  name: secret-db
+                  key: postgres-password
+          ports:
+            - containerPort: 80
+              name: web 
+          volumeMounts:
+            - mountPath: /var/www/html
+              name: drupal-data
+            - mountPath: /etc/secret-volume
+              name: secret-volume
+              readOnly: true
+      volumes:
+        - name: drupal-data
+          persistentVolumeClaim:
+            claimName: drupal-data-pvc
+        - name: secret-volume
+          secret:
+            secretName: secret-db

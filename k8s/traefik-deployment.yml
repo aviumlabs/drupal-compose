@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rp 
+  labels:
+    app: rp 
+
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: rp 
+  template:
+    metadata:
+      labels:
+        app: rp 
+    spec:
+      serviceAccountName: traefik-account
+      containers:
+        - name: rp 
+          image: traefik:v3.0
+          args:
+            - --api.insecure
+            - --providers.kubernetesIngress
+          ports:
+            - name: web 
+              containerPort: 80
+            - name: dashboard
+              containerPort: 8080

@@ -1,5 +1,5 @@
 services:
-  reverse-proxy:
+  rp:
     image: "traefik:v3.0"
     command: --api.insecure=true --providers.docker
     ports:
@@ -8,10 +8,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
-      - "traefik.http.routers.reverse-proxy.rule=Host(`rp.docker.localhost`)"
+      - "traefik.http.routers.rp.rule=Host(`rp.docker.localhost`)"
   drupal:
     image: "aviumlabs/drupal:latest-bookworm" 
-    restart: unless-stopped
+    restart: always
     ports:
       - "8090:80"
     volumes:
@@ -26,7 +26,9 @@ services:
       - path: ./.env 
         required: true
     image: "postgres:16.2-alpine3.19"
-    restart: unless-stopped
+    restart: always
+    ports:
+      - "5432"
     volumes:
       - db_data:/var/lib/postgresql/data
     healthcheck:
@@ -38,8 +40,6 @@ services:
       - postgres_password
     environment:
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_password
-    labels:
-      - "traefik.http.routers.db.rule=Host(`db.docker.localhost`)"
 volumes:
   drupal_data:
   db_data:
