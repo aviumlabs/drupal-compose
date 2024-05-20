@@ -46,13 +46,13 @@ configuration at http://localhost:8080.
   Select Save and continue  
 
 
-## OpenID Connect
+## OpenID Connect (Optional)
 
 
 To install and configure the OpenID Connect module please see docs/openid\_connect.md.
 
 
-## Installing Drush
+## Installing Drush (Optional)
 
 
 Drush is a command line shell and Unix scripting interface for Drupal.  
@@ -186,9 +186,3 @@ Command output:
 ![configure site image 2](./image/drupal_6_configure_site_2.png "Configure site continued")
 
 ![configure site image 3](./image/drupal_6_configure_site_3.png "Configure site continued")
-
-
-### Drupal Landing Page
-
-
-![drupal landing page image](./image/drupal_landing_page.png "Drupal landing page")

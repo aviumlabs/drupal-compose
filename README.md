@@ -39,7 +39,7 @@ Generating your repository...
     -p aviumlabs/drupal-compose 
 
 
-    $ cd <application-name>
+cd <application-name>
 
 
 Created repository \<github\_userid\>\<application\_name\>  on GitHub  
