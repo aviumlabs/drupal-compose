@@ -68,7 +68,7 @@ environment and database secret files.
 ### Linux, macOS
 
 
-    ./prepare -i
+    ./prepare -i [-k]
 
 
 ### Windows
@@ -80,9 +80,15 @@ environment and database secret files.
 ## Runtime
 
 
-After the environment has been configured Drupal docker services will be 
-started automatically if docker is running. Otherwise, start docker and 
-use the commands below to start the docker Drupal services.
+This deployment supports both docker container services and docker kubernetes 
+and choosing which to run is up to you. The prepare script preconfigures 
+both deployment types:
+
+* specifying only -i to the deploy script will also start the docker services 
+if docker is running
+* specifying both -i and -k will prevent the docker services from starting 
+automatically and allows you to decide which deployment to run
+
 
 Once the Drupal services are running, please see the docs/runtime-guide.md for 
 further information on configuring the Drupal instance.
@@ -91,18 +97,24 @@ further information on configuring the Drupal instance.
 ## Additional Docker Information 
 
 
-To run the services in the background:
+To run docker services in the background:
 
 
     docker compose up -d
 
 
-To run the services in the foreground:
+To run docker services in the foreground:
 
 
     docker compose up
 
+
+To run docker kubernetes:
+
     
+    kubectl apply -f k8s 
+
+
 To stop an individual service:
 
 
@@ -135,6 +147,16 @@ To list all containers:
 
 
     docker container ls -a
+
+
+To remove docker kubernetes:
+
+
+__WARNING__: removes persistent volume
+
+
+    kubectl delete -f k8s
+
 
 
 ### Revision Tag 0.0.3
@@ -170,6 +192,7 @@ To list all containers:
 
 - Drupal image: aviumlabs/drupal:latest-bookworm
 - PostgreSQL image: postgres:16.2-alpine3.19
+- Traefik image: traefik:v3.0
 
 
 [git-from-template]: https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template
@@ -179,3 +202,6 @@ To list all containers:
 
 
     docker compose exec drupal composer require '<module>'
+
+
+    kubectl exec <pod_name> -- composer require '<module>'

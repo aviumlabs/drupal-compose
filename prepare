@@ -3,14 +3,15 @@
 #
 #          FILE: prepare
 # 
-#         USAGE: ./prepare -i  
+#         USAGE: ./prepare -i [-k] 
 # 
 #   DESCRIPTION: Initialize a Drupal docker project with database support 
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
 #          BUGS: ---
-#         NOTES: This script generates the .env and .secret_db files for  
-#                supporting the Drupal docker environment. 
+#         NOTES: This script generates the .env, .secret_db, and .db-secret.yml  
+#                files for supporting the Drupal docker or kubernetes 
+#                environment. 
 #        AUTHOR: Michael Konrad (2024), 
 #  ORGANIZATION: Avium Labs LLC 
 #       CREATED: 04/29/2024 12:16
@@ -23,32 +24,53 @@ IFS=$'\n\t'
 # Defaults
 ENV_FILE=$(pwd)/.env
 DB_SECRET_FILE=$(pwd)/.secret_db
+KUBE_SECRET_FILE=$(pwd)/k8s/db-secret.yml
 
 # Help 
 usage() {
 	printf "\n"
-	printf "A script to automate the steps to configure the\n"
-	printf "docker containers based on this docker compose file.\n"
+	printf "A script to configure the baseline environment file and \n"
+	printf "secret files for the docker and kubernetes services.\n"
 	printf "\n"
-	printf "$0 -i\n"
+	printf "$0 -i [-k]\n"
+	printf "\n\n"
+	printf "$0 -c\n"
 	printf "\n Details: \n"
-	printf "           -i initializes the .env and .secret_db files.\n"
+	printf "           -i initializes the docker .env and .secret_db \n" 
+	printf "              and the kubernetes secret-db.yml files, \n"
+	printf "           -k prevents docker from automatically starting.\n" 
+	printf "           -c deletes the environment and secret files.\n"
 	printf "\n"
-	printf " This script by default generates the docker environment \n"
-	printf " file, as .env file in the current working directory.\n"
+	printf " The docker .env and .secret_db file are written to this directory.\n"
+	printf " The db-secret.yml file is written to the k8s subdirectory.\n"
+	printf "\n"
+	printf "If docker is running and kubernetes has not been specified, \n"
+	printf "this script will automatically start the docker services. \n"
+	printf "\n"
+	printf "If -k has been passed to the script, then please run the \n"
+	printf "following command to start the kubernetes services: \n"
+	printf "\n"
+	printf "    kubectl apply -f k8s \n\n"
+	printf "\n"
+	printf "Run the following command to tear down the services: \n"
+	printf "\n"
+	printf "    kubectl delete -f k8s \n\n"
         printf "\n\n"
 	exit 1
 }
 
 INIT='false'
 CLEAN='false'
+KUBE='false'
 
 # Script options 
-optstring="ich"
+optstring="ikch"
 while getopts ${optstring} arg; do
 	case ${arg} in 
 		i)
 			INIT='true'
+			;;
+		k)      KUBE='true'
 			;;
 		c)
 			CLEAN='true'
@@ -122,16 +144,47 @@ DbFile
 	fi
 }
 
-start_docker() {
-	docker ps 2>&1
+gen_kube_secret_file() {
+	# Database secret has already been generated
+	
+	# base64 encode database secret 
+	ENCPWD=$(echo $PPWD | base64)
 
-	if [ $? -eq 0 ]; then
-		# Start the application
-		printf "Running docker compose up; press ctrl-c to stop...\n"
-		printf "\n"
-		docker compose up
+	if [ ! -f $KUBE_SECRET_FILE ]; then
+
+cat > $KUBE_SECRET_FILE <<KubeFile
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-db
+type: Opaque
+data:
+  postgres-password: $ENCPWD 
+KubeFile
 	else
-		printf "Please start docker and run docker compose up to start Drupal.\n"
+		printf "Kubernetes secret file is already existing.\n"
+		exit 1
+	fi
+}
+
+start_docker() {
+	if [ ${KUBE} == true ] && [ ${INIT} == true ]; then
+		printf "Kubernetes configuration completed.\n\n"
+		printf "Please start services with...kubectl apply -f k8s.\n\n"  
+		exit 0
+	elif [[ ${INIT} == true ]]; then
+		docker ps 2>&1
+
+		if [ $? -eq 0 ]; then
+			# Start the application
+			printf "Running docker compose up; press ctrl-c to stop...\n"
+			printf "\n"
+			docker compose up
+		else
+			printf "Please start docker and run docker compose up to start Drupal.\n"
+		fi
+	else
+		usage
 	fi
 }
 
@@ -144,6 +197,7 @@ initialize() {
 
 	# Generate database secret
 	gen_db_secret_file
+	gen_kube_secret_file
 
 	# Start docker Drupal services
 	start_docker
@@ -152,11 +206,15 @@ initialize() {
 # Finalize the Phoenix Framework configuration and call mix ecto.create
 sanitize() {
 	if [ -f "$ENV_FILE" ]; then 
-		rm $ENV_FILE	
+		rm -f $ENV_FILE	
 	fi	
 	
 	if [ -f "$DB_SECRET_FILE" ]; then
-		rm $DB_SECRET_FILE
+		rm -f $DB_SECRET_FILE
+	fi
+
+	if [ -f "$KUBE_SECRET_FILE" ]; then
+		rm -f $KUBE_SECRET_FIL
 	fi
 }
 

@@ -15,9 +15,10 @@ stable branch not covered by this guide.
 Module URL: `https://www.drupal.org/project/openid_connect` 
 
 
-    cd <project_directory> 
-
     docker compose exec drupal composer require 'drupal/openid_connect:^3.0@alpha'
+
+
+    kubectl exec drupal-... -- composer require 'drupal/openid_connect:^3.0@alpha'
 
 
 Docker compose command output:

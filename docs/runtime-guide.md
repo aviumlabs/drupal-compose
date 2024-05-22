@@ -4,8 +4,17 @@
 ## Initial Configuration
 
 
-After completing the post installation setup; access the Drupal 
-configuration at http://localhost:8080.
+The runtime environment includes traefik proxy services and how you access the 
+post install configuration URL is dependent on whether you are running docker 
+container services or kubernetes.
+
+
+Docker services URL: http://drupal.docker.localhost
+
+Kubernetes URL: http://drupal.k8s.localhost
+
+
+### Configuring Drupal
 
 
 1. Choose language  
@@ -64,6 +73,12 @@ Install command:
 
 
     docker compose exec drupal composer require 'drush/drush'
+
+
+or 
+
+
+    kubectl exec drupal-... -- composer require 'drush/drush'
 
 
 Command output:
