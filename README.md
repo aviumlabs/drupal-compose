@@ -152,7 +152,7 @@ To list all containers:
 To remove docker kubernetes:
 
 
-__WARNING__: removes persistent volume
+__WARNING__: removes dynamic persistent volume
 
 
     kubectl delete -f k8s
