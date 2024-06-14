@@ -15,7 +15,8 @@ services:
     ports:
       - "8090:80"
     volumes:
-      - drupal_data:/var/www/html 
+      - drupal_data:/var/www/html
+      - ./src:/opt/drupal/web/modules/custom
     depends_on:
       db:
         condition: service_healthy
@@ -25,7 +26,7 @@ services:
     env_file: 
       - path: ./.env 
         required: true
-    image: "postgres:16.2-alpine3.19"
+    image: "postgres:16.3-alpine3.20"
     restart: always
     ports:
       - "5432"

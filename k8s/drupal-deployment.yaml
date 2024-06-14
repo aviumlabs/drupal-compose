@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata: 
   name: drupal
+  namespace: default
   labels: 
     app: drupal
 
@@ -48,6 +49,8 @@ spec:
           volumeMounts:
             - mountPath: /var/www/html
               name: drupal-data
+            - mountPath: /var/www/html/modules/custom
+              name: custom-modules
             - mountPath: /etc/secret-volume
               name: secret-volume
               readOnly: true
@@ -55,6 +58,9 @@ spec:
         - name: drupal-data
           persistentVolumeClaim:
             claimName: drupal-data-pvc
+        - name: custom-modules
+          hostPath:
+            path: /local/custom/modules/path
         - name: secret-volume
           secret:
             secretName: secret-db

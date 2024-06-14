@@ -109,10 +109,6 @@ To run docker services in the foreground:
     docker compose up
 
 
-To run docker kubernetes:
-
-    
-    kubectl apply -f k8s 
 
 
 To stop an individual service:
@@ -149,14 +145,47 @@ To list all containers:
     docker container ls -a
 
 
+### Kubernetes 
+
+
+This repository includes support for running in the included Kubernetes 
+environment in Docker. 
+
+
+To deploy against Kubernetes, the k8s/drupal-deployment.yaml file must be 
+updated first. Under volumes > custom-modules, update the path setting to 
+a local directory for developing Drupal custom modules. 
+
+
+#### Running Drupal on kubernetes for the first time
+
+
+In order to prevent the dynamic persistent volumes from being deleted, the 
+PersistentVolumeClaims reside in the k8s/pvc directory.
+
+When running the deployment for the first time, include the recursive flag (-R):
+    
+    kubectl apply -R -f k8s 
+
+
+Now the delete command can be safely run to stop running pods. 
+
+
 To remove docker kubernetes:
-
-
-__WARNING__: removes dynamic persistent volume
 
 
     kubectl delete -f k8s
 
+
+On consecutive deployments, run apply without the recursive flag:
+
+
+    kubectl apply -f k8s
+
+
+This solution for preventing the deletion of the dynamic persistent volumes 
+is only a partial solution. The PVs will not survive a Docker Desktop shutdown 
+or an OS restart/shutdown. 
 
 
 ### Revision Tag 0.0.3
@@ -191,7 +220,7 @@ __WARNING__: removes dynamic persistent volume
 
 
 - Drupal image: aviumlabs/drupal:latest-bookworm
-- PostgreSQL image: postgres:16.2-alpine3.19
+- PostgreSQL image: postgres:16.3-alpine3.20
 - Traefik image: traefik:v3.0
 
 

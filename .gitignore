@@ -1,6 +1,6 @@
 # Secrets
 .secret_*
-*-secret.yml
+*-secret*
 
 # Apple
 .DS_Store
