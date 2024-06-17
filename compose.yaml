@@ -1,27 +1,15 @@
 services:
-  rp:
-    image: "traefik:v3.0"
-    command: --api.insecure=true --providers.docker
-    ports:
-      - "80:80"
-      - "8080:8080"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - "traefik.http.routers.rp.rule=Host(`rp.docker.localhost`)"
   drupal:
     image: "aviumlabs/drupal:latest-bookworm" 
     restart: always
     ports:
-      - "8090:80"
+      - "8080:80"
     volumes:
       - drupal_data:/var/www/html
       - ./src:/opt/drupal/web/modules/custom
     depends_on:
       db:
         condition: service_healthy
-    labels:
-      - "traefik.http.routers.drupal.rule=Host(`drupal.docker.localhost`)"
   db:
     env_file: 
       - path: ./.env 
